@@ -49,8 +49,8 @@ export default function Footer() {
           {/* Column 1: Brand & Socials (Span 4) */}
           <motion.div className="lg:col-span-4 flex flex-col items-start" variants={itemVariants}>
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-full bg-[#F59E0B] flex items-center justify-center text-[#11052C] font-bold shadow-md">
-                W
+              <div className="w-10 h-10 rounded-full  flex items-center justify-center text-[#11052C] font-bold shadow-md">
+                <img src="/logo-shield.png" alt="" />
               </div>
               <div>
                 <h3 className="text-sm font-black uppercase tracking-wider text-white">THE WESTMINSTER</h3>
