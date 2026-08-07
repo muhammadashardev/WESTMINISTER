@@ -1,5 +1,28 @@
 import React, { useRef } from 'react';
+import { motion } from 'framer-motion';
 import { ChevronLeft, ChevronRight, ArrowRight, Award } from 'lucide-react';
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15,
+      delayChildren: 0.2,
+      duration: 0.6,
+      ease: "easeOut"
+    }
+  }
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: "easeOut" }
+  }
+};
 
 export default function HallOfChampions() {
   const scrollRef = useRef(null);
@@ -59,76 +82,85 @@ export default function HallOfChampions() {
   ];
 
   return (
-    <section className="w-full py-20 bg-[#F9F9FB] font-sans overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* ================= HEADER SECTION ================= */}
-        <div className="flex flex-col items-center text-center mb-16">
-          <div className="bg-[#17062A] text-white text-[11px] font-bold px-6 py-2 rounded-full uppercase tracking-wider mb-4 shadow-sm">
-            Winners Spotlight
-          </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-[#17062A] uppercase tracking-tight">
-            HALL OF CHAMPIONS
-          </h2>
-        </div>
+    <motion.section 
+      className="w-full py-20 bg-[#F9F9FB] font-sans overflow-hidden"
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-100px" }}
+      variants={containerVariants}
+    >
+      <motion.div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" variants={containerVariants}>
+         
+         {/* ================= HEADER SECTION ================= */}
+         <motion.div className="flex flex-col items-center text-center mb-16" variants={itemVariants}>
+           <div className="bg-[#17062A] text-white text-[11px] font-bold px-6 py-2 rounded-full uppercase tracking-wider mb-4 shadow-sm">
+             Winners Spotlight
+           </div>
+           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-[#17062A] uppercase tracking-tight">
+             HALL OF CHAMPIONS
+           </h2>
+         </motion.div>
 
-        {/* ================= CARDS SLIDER CONTAINER ================= */}
-        <div 
-          ref={scrollRef}
-          className="flex gap-6 overflow-x-auto scrollbar-hide pb-6 pt-2 px-2 snap-x snap-mandatory scroll-smooth"
-          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-        >
-          {champions.map((item) => (
-            <div 
-              key={item.id}
-              className="min-w-[280px] sm:min-w-[310px] lg:min-w-[320px] flex-1 bg-white rounded-[28px] p-4 shadow-[0_10px_30px_rgba(0,0,0,0.06)] border border-gray-100 flex flex-col justify-between snap-start group"
-            >
-              {Image }
-              <div>
-                <div className="relative w-full h-[220px] sm:h-[230px] rounded-[20px] overflow-hidden mb-4 bg-gray-100">
-                  <img 
-                    src={item.image} 
-                    alt={item.name}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                  
-                  {/* Year Badge (Yellow/Amber) */}
-                  <div className="absolute top-3 left-3 bg-[#F59E0B] text-white text-xs font-bold px-3 py-1 rounded-md shadow-md">
-                    {item.year}
-                  </div>
+         {/* ================= CARDS SLIDER CONTAINER ================= */}
+         <motion.div 
+           ref={scrollRef}
+           className="flex gap-6 overflow-x-auto scrollbar-hide pb-6 pt-2 px-2 snap-x snap-mandatory scroll-smooth"
+           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+           variants={containerVariants}
+         >
+           {champions.map((item) => (
+             <motion.div 
+               key={item.id}
+               className="min-w-[280px] sm:min-w-[310px] lg:min-w-[320px] flex-1 bg-white rounded-[28px] p-4 shadow-[0_10px_30px_rgba(0,0,0,0.06)] border border-gray-100 flex flex-col justify-between snap-start group"
+               variants={itemVariants}
+               whileHover={{ y: -5 }}
+               transition={{ duration: 0.3 }}
+             >
+               <div>
+                 <div className="relative w-full h-[220px] sm:h-[230px] rounded-[20px] overflow-hidden mb-4 bg-gray-100">
+                   <img 
+                     src={item.image} 
+                     alt={item.name}
+                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                   />
+                   
+                   {/* Year Badge (Yellow/Amber) */}
+                   <div className="absolute top-3 left-3 bg-[#F59E0B] text-white text-xs font-bold px-3 py-1 rounded-md shadow-md">
+                     {item.year}
+                   </div>
 
-                  {/* G.I.S Badge */}
-                  <div className="absolute top-3 right-3 bg-[#17062A]/80 backdrop-blur-md text-white text-[10px] font-bold px-2.5 py-1 rounded-md flex items-center gap-1 border border-white/10">
-                    <Award size={12} className="text-[#F59E0B]" />
-                    <span>{item.gis}</span>
-                  </div>
-                </div>
+                   {/* G.I.S Badge */}
+                   <div className="absolute top-3 right-3 bg-[#17062A]/80 backdrop-blur-md text-white text-[10px] font-bold px-2.5 py-1 rounded-md flex items-center gap-1 border border-white/10">
+                     <Award size={12} className="text-[#F59E0B]" />
+                     <span>{item.gis}</span>
+                   </div>
+                 </div>
 
-                {/* Content Details */}
-                <h3 className="text-lg font-black text-[#17062A] tracking-tight mb-1">
-                  {item.name}
-                </h3>
-                <p className="text-[12px] text-gray-500 font-medium leading-relaxed mb-4 line-clamp-1">
-                  {item.details}
-                </p>
-              </div>
+                 {/* Content Details */}
+                 <h3 className="text-lg font-black text-[#17062A] tracking-tight mb-1">
+                   {item.name}
+                 </h3>
+                 <p className="text-[12px] text-gray-500 font-medium leading-relaxed mb-4 line-clamp-1">
+                   {item.details}
+                 </p>
+               </div>
 
-              {/* Bottom Action inside Card */}
-              <div className="pt-3 border-t border-gray-100 flex items-center justify-between cursor-pointer group/link">
-                <span className="text-xs font-bold text-[#17062A] uppercase tracking-wide group-hover/link:text-amber-600 transition-colors">
-                  View Pedigree
-                </span>
-                <div className="w-7 h-7 rounded-full bg-gray-50 border border-gray-200 flex items-center justify-center text-[#17062A] group-hover/link:bg-[#17062A] group-hover/link:text-white transition-all">
-                  <ArrowRight size={14} />
-                </div>
-              </div>
+               {/* Bottom Action inside Card */}
+               <div className="pt-3 border-t border-gray-100 flex items-center justify-between cursor-pointer group/link">
+                 <span className="text-xs font-bold text-[#17062A] uppercase tracking-wide group-hover/link:text-amber-600 transition-colors">
+                   View Pedigree
+                 </span>
+                 <div className="w-7 h-7 rounded-full bg-gray-50 border border-gray-200 flex items-center justify-center text-[#17062A] group-hover/link:bg-[#17062A] group-hover/link:text-white transition-all">
+                   <ArrowRight size={14} />
+                 </div>
+               </div>
 
-            </div>
-          ))}
-        </div>
+             </motion.div>
+           ))}
+         </motion.div>
 
-        {/* ================= BOTTOM CONTROLS & BUTTONS ================= */}
-        <div className="flex flex-col sm:flex-row items-center justify-between mt-10 gap-6">
+         {/* ================= BOTTOM CONTROLS & BUTTONS ================= */}
+         <motion.div className="flex flex-col sm:flex-row items-center justify-between mt-10 gap-6" variants={itemVariants}>
           
           {/* Left & Right Slider Buttons */}
           <div className="flex items-center gap-3">
@@ -160,9 +192,9 @@ export default function HallOfChampions() {
             </button>
           </div>
 
-        </div>
+         </motion.div>
 
-      </div>
-    </section>
-  );
+       </motion.div>
+     </motion.section>
+   );
 }

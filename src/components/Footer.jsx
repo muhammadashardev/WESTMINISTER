@@ -1,9 +1,38 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import { Phone, MapPin, MessageSquare } from 'lucide-react';
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.2,
+      duration: 0.6,
+      ease: "easeOut"
+    }
+  }
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: "easeOut" }
+  }
+};
 
 export default function Footer() {
   return (
-    <footer className="relative bg-[#11052C] text-white pt-28 pb-10 overflow-hidden font-sans">
+    <motion.footer 
+      className="relative bg-[#11052C] text-white pt-28 pb-10 overflow-hidden font-sans"
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-100px" }}
+      variants={containerVariants}
+    >
       
       {/* Top Wavy Shape SVG */}
       <div className="absolute top-0 left-0 w-full overflow-hidden leading-none z-10">
@@ -12,13 +41,13 @@ export default function Footer() {
         </svg>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
+      <motion.div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20" variants={containerVariants}>
         
         {/* Main Footer Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 pb-16 border-b border-white/10 items-start">
+        <motion.div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 pb-16 border-b border-white/10 items-start" variants={containerVariants}>
           
           {/* Column 1: Brand & Socials (Span 4) */}
-          <div className="lg:col-span-4 flex flex-col items-start">
+          <motion.div className="lg:col-span-4 flex flex-col items-start" variants={itemVariants}>
             <div className="flex items-center gap-3 mb-4">
               <div className="w-10 h-10 rounded-full bg-[#F59E0B] flex items-center justify-center text-[#11052C] font-bold shadow-md">
                 W
@@ -66,10 +95,10 @@ export default function Footer() {
                 </svg>
               </a>
             </div>
-          </div>
+          </motion.div>
 
           {/* Column 2: Contact Info with White Circular Badges (Span 4) */}
-          <div className="lg:col-span-4 flex flex-col space-y-6 lg:border-x lg:border-white/10 lg:px-8">
+          <motion.div className="lg:col-span-4 flex flex-col space-y-6 lg:border-x lg:border-white/10 lg:px-8" variants={itemVariants}>
             
             {/* Contact Item 1 */}
             <div className="flex items-center gap-4">
@@ -104,10 +133,10 @@ export default function Footer() {
               </div>
             </div>
 
-          </div>
+          </motion.div>
 
           {/* Column 3 & 4: Quick Links & Media (Span 4) */}
-          <div className="lg:col-span-4 grid grid-cols-2 gap-6 lg:pl-4">
+          <motion.div className="lg:col-span-4 grid grid-cols-2 gap-6 lg:pl-4" variants={itemVariants}>
             
             {/* Quick Links */}
             <div>
@@ -132,12 +161,12 @@ export default function Footer() {
               </ul>
             </div>
 
-          </div>
+          </motion.div>
 
-        </div>
+        </motion.div>
 
         {/* Bottom Bar */}
-        <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-gray-400">
+        <motion.div className="pt-8 flex flex-col md:flex-row items-center justify-center gap-10 lg:gap-50 text-xs text-gray-400" variants={itemVariants}>
           <p className="font-medium">
             Copyright 2025 <span className="text-[#F59E0B] font-bold">Babét</span>. All Rights Reserved.
           </p>
@@ -148,9 +177,9 @@ export default function Footer() {
             <a href="#" className="hover:text-white transition-colors">Refund Policy</a>
             <a href="#" className="hover:text-white transition-colors">Get Support</a>
           </div>
-        </div>
+        </motion.div>
 
-      </div>
-    </footer>
+      </motion.div>
+    </motion.footer>
   );
 }

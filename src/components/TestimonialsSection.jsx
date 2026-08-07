@@ -1,28 +1,57 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import { Star } from 'lucide-react';
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15,
+      delayChildren: 0.2,
+      duration: 0.6,
+      ease: "easeOut"
+    }
+  }
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: "easeOut" }
+  }
+};
 
 export default function TestimonialsSection() {
   return (
-    <section className="w-full py-20 bg-white font-sans">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* ================= HEADER SECTION ================= */}
-        <div className="flex flex-col items-center text-center mb-16">
-          <div className="bg-[#17062A] text-white text-[11px] font-bold px-6 py-2 rounded-full uppercase tracking-wider mb-4 shadow-sm">
-            Testimonials
-          </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-[#17062A] uppercase tracking-tight">
-            WHAT VISITORS SAY
-          </h2>
-        </div>
+    <motion.section 
+      className="w-full py-20 bg-white font-sans"
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-10px" }}
+      variants={containerVariants}
+    >
+      <motion.div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" variants={containerVariants}>
+         
+         {/* ================= HEADER SECTION ================= */}
+         <motion.div className="flex flex-col items-center text-center mb-16" variants={itemVariants}>
+           <div className="bg-[#17062A] text-white text-[11px] font-bold px-6 py-2 rounded-full uppercase tracking-wider mb-4 shadow-sm">
+             Testimonials
+           </div>
+           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-[#17062A] uppercase tracking-tight">
+             WHAT VISITORS SAY
+           </h2>
+         </motion.div>
 
-        {/* ================= 3-COLUMN GRID ================= */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-14">
-          
-          {/* Card 1: Image Card with Floating Google Rating */}
-          <div className="relative w-full h-[420px] rounded-[28px] overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.08)] bg-gray-100">
+         {/* ================= 3-COLUMN GRID ================= */}
+         <motion.div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-14" variants={containerVariants}>
+           
+           {/* Card 1: Image Card with Floating Google Rating */}
+           <motion.div className="relative w-full h-[420px] rounded-[28px] overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.08)] bg-gray-100" variants={itemVariants}>
             <img 
-              src="https://images.unsplash.com/photo-1552053831-71594a27632d?auto=format&fit=crop&q=80&w=800" 
+              src="2e1af57df64f58375a9e22b43d15eddea9b58096.png"
               alt="Dog Show Handler"
               className="w-full h-full object-cover"
             />
@@ -52,10 +81,10 @@ export default function TestimonialsSection() {
                 </p>
               </div>
             </div>
-          </div>
+           </motion.div>
 
-          {/* Card 2: Testimonial Card */}
-          <div className="bg-white rounded-[28px] p-8 sm:p-10 shadow-[0_10px_30px_rgba(0,0,0,0.06)] border border-gray-100 flex flex-col justify-between">
+           {/* Card 2: Testimonial Card */}
+           <motion.div className="bg-white rounded-[28px] p-8 sm:p-10 shadow-[0_10px_30px_rgba(0,0,0,0.06)] border border-gray-100 flex flex-col justify-between" variants={itemVariants}>
             <div>
               <div className="flex gap-1 text-[#5B21B6] mb-6">
                 {[...Array(5)].map((_, i) => (
@@ -77,37 +106,37 @@ export default function TestimonialsSection() {
                 <p className="text-[11px] text-gray-500 font-medium">Founder &amp; Lead Coach</p>
               </div>
             </div>
-          </div>
+           </motion.div>
 
-          {/* Card 3: Testimonial Card */}
-          <div className="bg-white rounded-[28px] p-8 sm:p-10 shadow-[0_10px_30px_rgba(0,0,0,0.06)] border border-gray-100 flex flex-col justify-between">
-            <div>
-              <div className="flex gap-1 text-[#5B21B6] mb-6">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} size={16} className="fill-[#5B21B6]" />
-                ))}
-              </div>
-              <p className="text-xs sm:text-[13px] text-gray-700 leading-relaxed font-normal mb-8">
-                &ldquo;The practical tools &amp; mindset shifts I gain during coach helped me become a more effective leader &amp; communicator. I highly recommend this coaching to anyone seeking real growth.&rdquo;
-              </p>
-            </div>
-            <div className="pt-6 border-t border-gray-100 flex items-center gap-4">
-              <img 
-                src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&q=80&w=200" 
-                alt="Emily Rodriguez"
-                className="w-11 h-11 rounded-full object-cover shadow-sm"
-              />
-              <div>
-                <h3 className="text-sm font-bold text-[#17062A]">Emily Rodriguez</h3>
-                <p className="text-[11px] text-gray-500 font-medium">Career Professional</p>
-              </div>
-            </div>
-          </div>
+            {/* Card 3: Testimonial Card */}
+            <motion.div className="bg-white rounded-[28px] p-8 sm:p-10 shadow-[0_10px_30px_rgba(0,0,0,0.06)] border border-gray-100 flex flex-col justify-between" variants={itemVariants}>
+             <div>
+               <div className="flex gap-1 text-[#5B21B6] mb-6">
+                 {[...Array(5)].map((_, i) => (
+                   <Star key={i} size={16} className="fill-[#5B21B6]" />
+                 ))}
+               </div>
+               <p className="text-xs sm:text-[13px] text-gray-700 leading-relaxed font-normal mb-8">
+                 &ldquo;The practical tools & mindset shifts I gain during coach helped me become a more effective leader & communicator. I highly recommend this coaching to anyone seeking real growth.&rdquo;
+               </p>
+             </div>
+             <div className="pt-6 border-t border-gray-100 flex items-center gap-4">
+               <img 
+                 src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&q=80&w=200" 
+                 alt="Emily Rodriguez"
+                 className="w-11 h-11 rounded-full object-cover shadow-sm"
+               />
+               <div>
+                 <h3 className="text-sm font-bold text-[#17062A]">Emily Rodriguez</h3>
+                 <p className="text-[11px] text-gray-500 font-medium">Career Professional</p>
+               </div>
+             </div>
+           </motion.div>
 
-        </div>
+         </motion.div>
 
-        {/* ================= BOTTOM SUB-FOOTER BAR ================= */}
-        <div className="flex flex-col lg:flex-row items-center justify-center gap-4 py-4 px-6 rounded-full bg-gray-50/80 border border-gray-100 max-w-4xl mx-auto mb-10 text-xs text-gray-600">
+         {/* ================= BOTTOM SUB-FOOTER BAR ================= */}
+         <motion.div className="flex flex-col lg:flex-row items-center justify-center gap-4 py-4 px-6 rounded-full bg-gray-50/80 border border-gray-100 max-w-4xl mx-auto mb-10 text-xs text-gray-600" variants={itemVariants}>
           <div className="flex items-center gap-3">
             <img 
               src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=100" 
@@ -126,16 +155,20 @@ export default function TestimonialsSection() {
             </div>
             <span className="text-gray-500">Over 4200 Reviews</span>
           </div>
-        </div>
+         </motion.div>
 
-        {/* ================= BOTTOM CENTERED BUTTON ================= */}
-        <div className="flex justify-center">
-          <button className="bg-[#17062A] hover:bg-[#250b42] text-white text-xs sm:text-sm font-bold px-10 py-3.5 rounded-full shadow-lg shadow-purple-900/10 transition-all cursor-pointer active:scale-95">
-            Blogs
-          </button>
-        </div>
+         {/* ================= BOTTOM CENTERED BUTTON ================= */}
+         <motion.div className="flex justify-center" variants={itemVariants}>
+           <motion.button 
+             className="bg-[#17062A] hover:bg-[#250b42] text-white text-xs sm:text-sm font-bold px-10 py-3.5 rounded-full shadow-lg shadow-purple-900/10 transition-all cursor-pointer active:scale-95"
+             whileHover={{ scale: 1.05 }}
+             whileTap={{ scale: 0.95 }}
+           >
+             Blogs
+           </motion.button>
+         </motion.div>
 
-      </div>
-    </section>
-  );
-}
+       </motion.div>
+     </motion.section>
+   );
+ }

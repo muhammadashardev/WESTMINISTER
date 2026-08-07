@@ -1,45 +1,91 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import { CheckCircle2 } from 'lucide-react';
-import BgShape from '/bg-shape.png';
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15,
+      delayChildren: 0.2,
+      duration: 0.6,
+      ease: 'easeOut',
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: 'easeOut' },
+  },
+};
 
 export default function AboutSection() {
   const results = [
-    "By Group",
-    "By Breed",
-    "Masters Agility",
-    "Junior Showmanship",
-    "Flyball"
+    'By Group',
+    'By Breed',
+    'Masters Agility',
+    'Junior Showmanship',
+    'Flyball',
   ];
 
   return (
-    <section className="relative w-full min-h-screen py-20 lg:py-28 bg-[#FDFDFD] overflow-hidden font-sans flex items-center">
-      
-      {/* Background Shape via URL with Gray Filter */}
-      <div 
-        className="absolute inset-0 z-0 pointer-events-none select-none bg-cover bg-center bg-no-repeat grayscale brightness-90 contrast-125 opacity-70"
-        style={{ backgroundImage: `url(${BgShape})` }}
-      />
-        
+    <motion.section
+      className="relative w-full min-h-screen py-20 lg:py-28 bg-[#FDFDFD] overflow-hidden font-sans flex items-center"
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: '-100px' }}
+      variants={containerVariants}
+      id="about"
+    >
+      {/* Wavy background shape — recreated with inline SVG (no external image needed) */}
+      <svg
+        className="absolute -top-[140px] left-0 w-full h-[260px] z-0 pointer-events-none select-none"
+        viewBox="0 0 1440 260"
+        preserveAspectRatio="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          fill="#F4EFFB"
+          d="M0,120 C240,200 420,40 720,90 C1020,140 1200,20 1440,100 L1440,0 L0,0 Z"
+        />
+      </svg>
+      <svg
+        className="absolute -bottom-[140px] left-0 w-full h-[260px] z-0 pointer-events-none select-none scale-y-[-1]"
+        viewBox="0 0 1440 260"
+        preserveAspectRatio="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          fill="#F4EFFB"
+          d="M0,120 C240,200 420,40 720,90 C1020,140 1200,20 1440,100 L1440,0 L0,0 Z"
+        />
+      </svg>
+
       {/* Subtle Concentric Rings (Top Right & Bottom Left) */}
       <div className="absolute inset-0 z-0 pointer-events-none select-none overflow-hidden">
         <div className="absolute top-[-10%] right-[-5%] w-[400px] h-[400px] border-[1px] border-gray-300 rounded-full opacity-40" />
         <div className="absolute top-[-5%] right-[-2%] w-[300px] h-[300px] border-[1px] border-gray-300 rounded-full opacity-40" />
-        
+
         <div className="absolute bottom-[-15%] left-[10%] w-[500px] h-[500px] border-[1px] border-gray-300 rounded-full opacity-40" />
         <div className="absolute bottom-[-10%] left-[15%] w-[400px] h-[400px] border-[1px] border-gray-300 rounded-full opacity-40" />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <motion.div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" variants={containerVariants}>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-8 items-center">
-          
+
           {/* ================= LEFT COLUMN: IMAGES ================= */}
-          <div className="relative w-full flex justify-center lg:justify-start pt-10 pb-20 lg:py-10">
+          <motion.div className="relative w-full flex justify-center lg:justify-start pt-10 pb-20 lg:py-10" variants={itemVariants}>
             <div className="relative w-full max-w-[420px] h-[480px]">
-              
+
               {/* Main Image (Dog Show Winners) */}
               <div className="absolute top-0 left-0 w-[75%] h-[400px] rounded-[32px] overflow-hidden rotate-[-6deg] shadow-xl z-10 border-4 border-white bg-gray-200">
-                <img 
-                  src="/main-dog-show.jpg" 
+                <img
+                  src="https://images.unsplash.com/photo-1611532585325-41f6d3a49e5a?w=800&h=900&fit=crop&auto=format&q=80"
                   alt="Dog Show Winners"
                   className="w-full h-full object-cover"
                 />
@@ -47,8 +93,8 @@ export default function AboutSection() {
 
               {/* Secondary Overlapping Image (Agility Course) */}
               <div className="absolute top-[8%] right-0 w-[55%] h-[260px] rounded-[32px] overflow-hidden rotate-[4deg] shadow-[0_10px_40px_rgba(0,0,0,0.15)] z-20 border-4 border-white bg-gray-200">
-                <img 
-                  src="/agility-course.jpg" 
+                <img
+                  src="https://images.unsplash.com/photo-1616684110388-efff7624660a?w=700&h=600&fit=crop&auto=format&q=80"
                   alt="Agility Championship"
                   className="w-full h-full object-cover"
                 />
@@ -71,12 +117,11 @@ export default function AboutSection() {
               </div>
 
             </div>
-          </div>
-
+          </motion.div>
 
           {/* ================= RIGHT COLUMN: TEXT CONTENT ================= */}
-          <div className="flex flex-col items-start lg:pl-10">
-            
+          <motion.div className="flex flex-col items-start lg:pl-10" variants={itemVariants}>
+
             {/* Pill Badge */}
             <div className="inline-flex bg-[#2E0854] text-white text-xs font-semibold px-6 py-2 rounded-full mb-5 shadow-sm">
               About us
@@ -89,8 +134,8 @@ export default function AboutSection() {
 
             {/* Paragraph */}
             <p className="text-[13px] sm:text-sm text-gray-600 leading-relaxed mb-8 max-w-xl">
-              For over a century, Westminster has celebrated the beauty, athleticism, 
-              and heritage of purebred dogs while promoting responsible ownership, 
+              For over a century, Westminster has celebrated the beauty, athleticism,
+              and heritage of purebred dogs while promoting responsible ownership,
               education, and canine excellence.
             </p>
 
@@ -98,11 +143,11 @@ export default function AboutSection() {
             <div className="relative w-full bg-[#EFEAF4] rounded-xl p-6 sm:p-7 mb-8 overflow-hidden">
               {/* Left Purple Border accent */}
               <div className="absolute top-0 left-0 bottom-0 w-[5px] bg-[#2E0854] rounded-l-xl"></div>
-              
+
               <h3 className="text-[15px] font-bold text-[#11052C] uppercase mb-5 tracking-wide">
                 150TH WESTMINSTER DOG SHOW RESULTS
               </h3>
-              
+
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-y-4 gap-x-2">
                 {results.map((item, index) => (
                   <div key={index} className="flex items-center gap-2">
@@ -123,8 +168,8 @@ export default function AboutSection() {
 
               <div className="flex items-center gap-3">
                 <div className="w-11 h-11 rounded-full overflow-hidden border-2 border-white shadow-sm bg-gray-200">
-                  <img 
-                    src="/bessie-cooper.jpg" 
+                  <img
+                    src="/bessie-cooper.jpg"
                     alt="Bessie Cooper"
                     className="w-full h-full object-cover"
                   />
@@ -140,9 +185,9 @@ export default function AboutSection() {
               </div>
             </div>
 
-          </div>
+          </motion.div>
         </div>
-      </div>
-    </section>
+      </motion.div>
+    </motion.section>
   );
 }

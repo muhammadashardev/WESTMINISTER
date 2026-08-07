@@ -1,5 +1,29 @@
 import React from 'react';
- const FollowSection = () => {
+import { motion } from 'framer-motion';
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.2,
+      duration: 0.6,
+      ease: "easeOut"
+    }
+  }
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: "easeOut" }
+  }
+};
+
+const FollowSection = () => {
   const cards = [
     {
       id: 1,
@@ -11,7 +35,7 @@ import React from 'react';
       id: 2,
       type: 'image',
       badge: 'handler-life',
-      image: 'https://images.unsplash.com/photo-1583337130417-3346a1be7dee?auto=format&fit=crop&q=80&w=600',
+      image: '/1650fcbc4e32c0c52a2817805ea8974412253ff6.png',
     },
     {
       id: 3,
@@ -21,33 +45,48 @@ import React from 'react';
       id: 4,
       type: 'image',
       badge: 'Best-in-show',
-      image: 'https://images.unsplash.com/photo-1601758177266-bc599de87707?auto=format&fit=crop&q=80&w=600',
+      image: '/dc307f15ac43af8306aabf9b777218647843736b.png',
     },
   ];
 
   return (
     <section className="w-full bg-white p-4 sm:p-6 md:p-8 font-sans">
       {/* Main Purple Container */}
-      <div className="bg-[#17062A] rounded-[32px] md:rounded-[48px] px-6 py-16 md:px-12 md:py-20 max-w-[1400px] mx-auto flex flex-col items-center shadow-2xl">
-        
-        {/* Top Pill Badge */}
-        <button className="border border-white/20 bg-white/5 hover:bg-white/10 transition-colors rounded-full px-6 py-2 text-[13px] font-medium text-white/90 mb-8 tracking-wide">
-          Follow us more
-        </button>
+      <motion.div 
+        className="bg-[#17062A] rounded-[32px] md:rounded-[48px] px-6 py-16 md:px-12 md:py-20 max-w-[1400px] mx-auto flex flex-col items-center shadow-2xl"
+        variants={containerVariants}
+      >
+         
+         {/* Top Pill Badge */}
+         <motion.button 
+           className="border border-white/20 bg-[#2E145B] hover:bg-white/10 transition-colors rounded-full px-6 py-2 text-[13px] font-medium text-white/90 mb-8 tracking-wide"
+           variants={itemVariants}
+         >
+           Follow us more
+         </motion.button>
 
-        {/* Heading */}
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight uppercase mb-12 text-center">
-          OUR INSTAGRAM
-        </h2>
+         {/* Heading */}
+         <motion.h2 
+           className="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight uppercase mb-12 text-center"
+           variants={itemVariants}
+         >
+           OUR INSTAGRAM
+         </motion.h2>
 
-        {/* Grid Layout */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 w-full max-w-6xl">
+         {/* Grid Layout */}
+         <motion.div 
+           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 w-full max-w-6xl"
+           variants={containerVariants}
+         >
           {cards.map((card) => {
             if (card.type === 'image') {
               return (
-                <div 
+                <motion.div 
                   key={card.id} 
                   className="relative w-full aspect-square rounded-2xl overflow-hidden group cursor-pointer"
+                  variants={itemVariants}
+                  whileHover={{ scale: 1.03 }}
+                  transition={{ duration: 0.3 }}
                 >
                   {/* Background Image */}
                   <img 
@@ -75,16 +114,19 @@ import React from 'react';
                         <line x1="17.5" y1="6.5" x2="17.5" y2="6.5" />
                       </svg>
                     </div>
-                  </div>
-                </div>
-              );
-            }
+                   </div>
+                 </motion.div>
+               );
+             }
 
             // Guess the Breed Text Card
             return (
-              <div 
+              <motion.div 
                 key={card.id} 
                 className="relative w-full aspect-square rounded-2xl overflow-hidden bg-[#261346] border border-[#F59E0B] flex flex-col items-center justify-center p-6 text-center cursor-pointer hover:bg-[#2d1752] transition-colors"
+                variants={itemVariants}
+                whileHover={{ scale: 1.03 }}
+                transition={{ duration: 0.3 }}
               >
                 {/* Custom Dog Outline Icon matching the design */}
                 <div className="mb-6 text-[#F59E0B]">
@@ -105,14 +147,14 @@ import React from 'react';
                 
                 <p className="text-white/70 text-xs sm:text-[13px] leading-relaxed max-w-[80%] font-medium">
                   Weekly interactive trivia on our stories!
-                </p>
-              </div>
-            );
-          })}
-        </div>
+                 </p>
+               </motion.div>
+             );
+           })}
+        </motion.div>
 
-      </div>
+      </motion.div>
     </section>
   );
 }
-export default FollowSection;
+ export default FollowSection;

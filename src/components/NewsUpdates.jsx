@@ -1,5 +1,28 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import { Calendar, User, ChevronsRight } from 'lucide-react';
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15,
+      delayChildren: 0.2,
+      duration: 0.6,
+      ease: "easeOut"
+    }
+  }
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: "easeOut" }
+  }
+};
 
 export default function NewsUpdates() {
   const newsItems = [
@@ -27,27 +50,36 @@ export default function NewsUpdates() {
   ];
 
   return (
-    <section className="w-full py-20 bg-white font-sans">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* ================= HEADER SECTION ================= */}
-        <div className="flex flex-col items-center text-center mb-16">
-          <div className="bg-[#17062A] text-white text-[11px] font-bold px-6 py-2 rounded-full uppercase tracking-wider mb-4 shadow-sm">
-            News &amp; Articles
-          </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-[#17062A] uppercase tracking-tight">
-            NEWS &amp; UPDATES
-          </h2>
-        </div>
+    <motion.section 
+      className="w-full py-20 bg-white font-sans"
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-10px" }}
+      variants={containerVariants}
+    >
+      <motion.div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" variants={containerVariants}>
+         
+         {/* ================= HEADER SECTION ================= */}
+         <motion.div className="flex flex-col items-center text-center mb-16" variants={itemVariants}>
+           <div className="bg-[#17062A] text-white text-[11px] font-bold px-6 py-2 rounded-full uppercase tracking-wider mb-4 shadow-sm">
+             News & Articles
+           </div>
+           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-[#17062A] uppercase tracking-tight">
+             NEWS & UPDATES
+           </h2>
+         </motion.div>
 
-        {/* ================= CARDS GRID ================= */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {newsItems.map((item) => (
-            <div 
-              key={item.id}
-              className="bg-white rounded-[32px] p-5 shadow-[0_10px_30px_rgba(0,0,0,0.06)] border border-gray-100 flex flex-col justify-between group"
-            >
-              <div>
+         {/* ================= CARDS GRID ================= */}
+         <motion.div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" variants={containerVariants}>
+           {newsItems.map((item) => (
+             <motion.div 
+               key={item.id}
+               className="bg-white rounded-[32px] p-5 shadow-[0_10px_30px_rgba(0,0,0,0.06)] border border-gray-100 flex flex-col justify-between group"
+               variants={itemVariants}
+               whileHover={{ y: -5 }}
+               transition={{ duration: 0.3 }}
+             >
+               <div>
                 {/* Image Container */}
                 <div className="relative w-full h-[230px] sm:h-[240px] rounded-[24px] overflow-hidden mb-5 bg-gray-100">
                   <img 
@@ -82,11 +114,11 @@ export default function NewsUpdates() {
                 </span>
               </div>
 
-            </div>
-          ))}
-        </div>
+             </motion.div>
+           ))}
+         </motion.div>
 
-      </div>
-    </section>
-  );
-}
+       </motion.div>
+     </motion.section>
+   );
+ }

@@ -55,7 +55,7 @@ export default function WestminsterHero() {
             {/* Logo */}
             <div className="flex items-center gap-2.5 cursor-pointer">
               <div className="w-9 h-9 rounded-full bg-[#3B0764] flex items-center justify-center text-white">
-                <PawPrint className="w-5 h-5 fill-current" />
+                <img src="/logo-shield.png" alt="" />
               </div>
               <div className="flex flex-col leading-tight">
                 <span className="font-extrabold tracking-wider text-xs sm:text-sm text-[#2E0854] uppercase">
@@ -144,7 +144,7 @@ export default function WestminsterHero() {
               <span className="text-[10px] sm:text-xs font-bold tracking-wider text-gray-700 uppercase">
                 THE WORLD'S MOST PRESTIGIOUS DOG SHOW
               </span>
-            </div>
+            </motion.div>
 
              {/* Main Title */}
              <motion.h1 className="text-4xl sm:text-5xl lg:text-[56px] font-black leading-[1.08] tracking-tight text-[#11052C] uppercase mb-8" variants={itemVariants}>
@@ -174,4 +174,11 @@ export default function WestminsterHero() {
            </motion.div>
 
            {/* Right Spacer (Allows the background image's boy & dog to be visible) */}
-           <div className="hidden lg:block lg:col-span-5 xl:col-span-
+           <div className="hidden lg:block lg:col-span-5 xl:col-span-6 min-h-[500px]"></div>
+
+         </motion.div>
+
+      </div>
+    </motion.div>
+  );
+}
