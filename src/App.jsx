@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import AboutSection from "./components/Aboutus"
 import BreedShowcase from "./components/BreedShowcase"
@@ -12,6 +13,7 @@ import WestminsterHero from "./components/Herosection"
 import NewsUpdates from "./components/NewsUpdates"
 import FeaturesSection from "./components/Ourfeature"
 import TestimonialsSection from "./components/TestimonialsSection"
+import SiteLoader from "./components/SiteLoader"
 
 const pageVariants = {
   initial: { opacity: 0 },
@@ -48,15 +50,32 @@ function Section({ children }) {
 }
 
 function App() {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const finishLoading = () => {
+      window.setTimeout(() => setIsLoading(false), 900);
+    };
+
+    if (document.readyState === "complete") {
+      finishLoading();
+      return;
+    }
+
+    window.addEventListener("load", finishLoading, { once: true });
+    return () => window.removeEventListener("load", finishLoading);
+  }, []);
 
   return (
-   <motion.div
-     variants={pageVariants}
-     initial="initial"
-     animate="animate"
-     exit="exit"
-     transition={pageTransition}
-   >
+   <>
+     <AnimatePresence>{isLoading && <SiteLoader />}</AnimatePresence>
+     <motion.div
+       variants={pageVariants}
+       initial="initial"
+       animate="animate"
+       exit="exit"
+       transition={pageTransition}
+     >
      <Section>
        <WestminsterHero />
      </Section>
@@ -93,7 +112,8 @@ function App() {
      <Section>
        <Footer />
      </Section>
-   </motion.div>
+     </motion.div>
+   </>
   )
 }
 
